@@ -14,7 +14,11 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
     // if [], run once when the row loads, and dont run again
     async function fetchData() {
       const request = await axios.get(fetchUrl);
-      setMovies(request.data.results);
+      const movieResults = request.data.results;
+      const filterResult = movieResults?.filter(
+        (movie) => movie?.adult !== true
+      );
+      setMovies(filterResult);
       return request;
     }
     fetchData();
@@ -42,7 +46,7 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
     }
   };
 
-  console.log(trailerUrl);
+  console.log(movies);
 
   return (
     <div className='row'>
